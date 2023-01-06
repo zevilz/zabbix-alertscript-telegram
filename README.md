@@ -22,7 +22,10 @@ Script for sending Zabbix alerts via Telegram bot
 		- `{ALERT.SENDTO}`;
 		- `{ALERT.SUBJECT}`;
 		- `{ALERT.MESSAGE}`;
-- test the script by clicking on the `test` button in the list of media types.
+- test the script by clicking on the `test` button in the list of media types
+- add message templates in media type or directly in trigger actions (you can use [Markdown](https://core.telegram.org/bots/api#markdown-style) in templates).
+
+Now you can choose this media type when setting up users.
 
 The bot must be started if the message is sent as a private message or must be added to a group if the message is to be sent to the group. You can get chat ID via [@zGetMyID_bot](https://t.me/zGetMyID_bot).
 
