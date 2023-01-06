@@ -1,4 +1,9 @@
 #!/bin/bash
+# Script for sending Zabbix alerts via Telegram bot
+# URL: https://github.com/zevilz/zabbix-alertscript-telegram
+# Author: zEvilz
+# License: MIT
+# Version: 1.0.0
 
 # vars
 TELEGRAM_BOT_TOKEN=""
