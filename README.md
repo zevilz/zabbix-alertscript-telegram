@@ -29,7 +29,7 @@ Now you can choose this media type when setting up users.
 
 The bot must be started if the message is sent as a private message or must be added to a group if the message is to be sent to the group. You can get chat ID via [@zGetMyID_bot](https://t.me/zGetMyID_bot).
 
-By default long messages will be cutted to 4000 characters. if you will be sending long trigger descriptions in messages as monospaced text (triple apostrophe), set the `MONOSPACED_DESCRIPTION` var to 1. In this case the script will properly complete the cutted text. Example template:
+By default long messages will be cutted to 4000 characters. if you will be sending long trigger descriptions in messages as monospaced text (triple apostrophe), set the `MONOSPACED_DESCRIPTION` var to `1`. In this case the script will properly complete the cutted text. Example template:
 
 ````
 Started: {EVENT.TIME} {EVENT.DATE}
