@@ -11,7 +11,7 @@ Script for sending Zabbix alerts via Telegram bot
 ## Installation
 
 - install curl and [jo](https://github.com/jpmens/jo#install);
-- put the script into `/usr/lib/zabbix/alertscripts`;
+- put the script into `/usr/lib/zabbix/alertscripts` (set permissions to `700` and owner `zabbix:zabbix`);
 - register Telegram bot via [@BotFather](https://t.me/BotFather);
 - put bot token into var `TELEGRAM_BOT_TOKEN`;
 - create new media type in `Administration` -> `Media types` -> `Create media type`:
