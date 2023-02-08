@@ -48,8 +48,6 @@ Direct access to the script disabled for all users excluding `zabbix` user.
 - `SCRIPT_LOG_PATH` - full path to script logs file (zabbix user must be have write permissions to that file; empty by default; logs stored in script directory in `zbx_tlg_bot.log` file if empty value)
 - `DEBUG` - write debug messages in logs file (`0` - disabled, `1` enabled; disabled by default).
 
-To send graphs, specified user must have access to graphs of required data elements through the API and through the web interface. This can be a super admin or a user of any user role with required minimum rights. You may create super admin with minimal rights (all features are disabled, except for one of interface elements and API feature) and active only `graph.get` API method.
-
 By default long messages will be truncated to 4000 characters (900 for graphs captions). if you will be sending long trigger descriptions in messages as monospaced text (triple apostrophe), set the `MONOSPACED_DESCRIPTION` var to `1`. In this case the script will properly complete truncated text. Example template:
 
 ````
@@ -64,6 +62,8 @@ Original problem ID: {EVENT.ID}
 ````
 
 ## Graphs
+
+To send graphs, specified user must have access to graphs of required data elements through the API and through the web interface. This can be a super admin or a user of any user role with required minimum rights. You may create super admin with minimal rights (all features are disabled, except for one of interface elements and API feature) and active only `graph.get` API method.
 
 Add folowing string with graph data to messages template if you want attach graphs to messages:
 
