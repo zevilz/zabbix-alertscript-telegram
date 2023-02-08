@@ -86,7 +86,7 @@ zbxApiAuth()
 			 \"id\": 1,
 			 \"auth\": null
 			}
-			" $ZABBIX_API_URL 2>/dev/null
+			" "$ZABBIX_API_URL" 2>/dev/null
 		)
 
 		if ! [ -z "$ZABBIX_AUTH" ]; then
@@ -128,7 +128,7 @@ zbxApiGetGraphId()
 				\"auth\": \"$ZABBIX_AUTH_TOKEN\",
 				\"id\": 1
 			}
-			" $ZABBIX_API_URL 2>/dev/null
+			" "$ZABBIX_API_URL" 2>/dev/null
 		)
 
 		if ! [ -z "$ZABBIX_GRAPH" ]; then
@@ -280,7 +280,7 @@ tlgResult()
 pushToLog()
 {
 	if [[ $# -eq 1 ]]; then
-		echo -e "[$(date +%Y-%m-%d\ %H:%M:%S)] Zabbix Telegram alertscript: $1" >> $SCRIPT_LOG_PATH
+		echo -e "[$(date +%Y-%m-%d\ %H:%M:%S)] Zabbix Telegram alertscript: $1" >> "$SCRIPT_LOG_PATH"
 	fi
 }
 
