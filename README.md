@@ -1,4 +1,4 @@
-# Telegram alertscript for Zabbix [![Version](https://img.shields.io/badge/version-v2.0.0-green.svg)](https://github.com/zevilz/zabbix-alertscript-telegram/releases/tag/2.0.0)
+# Telegram alertscript for Zabbix [![Version](https://img.shields.io/badge/version-v2.0.0-brightgreen.svg)](https://github.com/zevilz/zabbix-alertscript-telegram/releases/tag/2.0.0)
 
 Script for sending Zabbix alerts via Telegram bot. Sending native Zabbix graphs is supported.
 
