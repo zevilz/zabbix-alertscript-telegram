@@ -63,7 +63,7 @@ Original problem ID: {EVENT.ID}
 
 ## Graphs
 
-To send graphs, specified user must have access to graphs of required data elements through the API and through the web interface. This can be a super admin or a user of any user role with required minimum rights. You may create super admin with minimal rights (all features are disabled, except for one of interface elements and API feature) and active only `graph.get` API method.
+To send graphs, specified user must have access to graphs of required data elements through the API and through the web interface. This can be a super admin or a user of any user role with required minimum rights. Also you may create super admin with minimal rights (all features are disabled, except for one of interface elements and API feature) and active only `graph.get` API method. This user will can access all graphs of all hosts.
 
 Add folowing string with graph data to messages template if you want attach graphs to messages:
 
