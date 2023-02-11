@@ -102,6 +102,9 @@ Notes:
 - [ ] add graphs blacklist for specified items;
 - [ ] add support for redefine item ID from specified trigger.
 
+## Reviews
+- [zevilz.dev](https://zevilz.dev/posts/825/) (RU)
+
 ## Changelog
 - 08.02.2023 - 2.0.0 - [Added support for sending graphs, logging and more](https://github.com/zevilz/zabbix-alertscript-telegram/releases/tag/2.0.0)
 - 06.01.2023 - 1.0.0 - released
