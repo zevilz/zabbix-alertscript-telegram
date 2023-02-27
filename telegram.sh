@@ -17,6 +17,7 @@ ZABBIX_PASS=""
 ZABBIX_COOKIES_LIFETIME=30
 ZABBIX_COOKIES_PATH=
 MONOSPACED_DESCRIPTION=0
+EXTRACT_MENTIONS=0
 SCRIPT_LOG_PATH=
 DEBUG=0
 
@@ -67,6 +68,19 @@ extractGraphData()
 {
 	GRAPH_DATA=$(echo "$TEXT" | grep -o -E '(<graph:[^>]+>)' | tail -n 1 | tr -d '<>')
 	TEXT=$(echo "$TEXT" | sed -E 's/<graph:[^>]+>//g')
+}
+
+extractMentions()
+{
+	local TEXT_MENTIONS=$(echo "$TEXT" | grep -oP '@[A-Za-z0-9]+' | tr -s "\n" " ")
+	local MENTIONS_TAG=$(echo "$TEXT" | grep "<mentions>")
+
+	if [ "$EXTRACT_MENTIONS" -eq 1 ] && ! [ -z "$TEXT_MENTIONS" ] && ! [ -z "$MENTIONS_TAG" ]; then
+		TEXT=$(echo "$TEXT" | sed -E 's/@[A-Za-z0-9]+//g')
+		TEXT=$(echo "$TEXT" | sed "s/<mentions>/${TEXT_MENTIONS}/g")
+	fi
+
+	TEXT=$(echo "$TEXT" | sed -E 's/<mentions>//g')
 }
 
 zbxApiAuth()
@@ -332,6 +346,7 @@ if [ $GRAPHS -eq 1 ]; then
 fi
 
 extractGraphData
+extractMentions
 
 if [ $GRAPHS -eq 1 ] && ! [ -z "$GRAPH_DATA" ] && ! [ -z "$ZABBIX_URL" ] && ! [ -z "$ZABBIX_API_URL" ] && ! [ -z "$ZABBIX_USER" ] && ! [ -z "$ZABBIX_PASS" ]; then
 	GRAPH_ITEM_ID=$(echo "$GRAPH_DATA" | awk -F ':' '{print $2}')
