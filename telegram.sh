@@ -214,6 +214,14 @@ zbxGetGraphImage()
 	fi
 }
 
+tlgPrepareText()
+{
+	if [ "$GRAPH_ISSET" -eq 1 ]; then
+		TEXT=$(echo "$TEXT" | sed -E -e 's/([-"`´,§$%&/(){}#@!?*.\t])/\\\1/g')
+		TEXT=$(echo "$TEXT" | sed -E -e 's/\\([^nu])/\1/g')
+	fi
+}
+
 tlgSendMessage()
 {
 	DATA=$(jo chat_id="$TELEGRAM_CHAT_ID" text="$TEXT" parse_mode="markdown" disable_web_page_preview="true")
@@ -226,9 +234,6 @@ tlgSendMessage()
 
 tlgSendPhoto()
 {
-	TEXT=$(echo "$TEXT" | sed -E -e 's/([-"`´,§$%&/(){}#@!?*.\t])/\\\1/g')
-	TEXT=$(echo "$TEXT" | sed -E -e 's/\\([^nu])/\1/g')
-
 	TLG_RESPONSE=$(/usr/bin/curl -s \
 		-X POST \
 		-H "Content-Type:multipart/form-data" \
@@ -354,6 +359,8 @@ if [ $GRAPHS -eq 1 ] && ! [ -z "$GRAPH_DATA" ] && ! [ -z "$ZABBIX_URL" ] && ! [ 
 		pushToLog "[WARNING] - Graph data exists but incorrect (graphData: $GRAPH_DATA)"
 	fi
 fi
+
+tlgPrepareText
 
 if [ "$GRAPH_ISSET" -eq 1 ]; then
 	tlgCutText "$TELEGRAM_CAPTION_LIMIT"
