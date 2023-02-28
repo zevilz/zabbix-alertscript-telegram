@@ -72,11 +72,11 @@ extractGraphData()
 
 extractMentions()
 {
-	local TEXT_MENTIONS=$(echo "$TEXT" | grep -oP '@[A-Za-z0-9]+' | tr -s "\n" " ")
+	local TEXT_MENTIONS=$(echo "$TEXT" | grep -oP '@[A-Za-z0-9_\\]+' | tr -s "\n" " ")
 	local MENTIONS_TAG=$(echo "$TEXT" | grep "<mentions>")
 
 	if [ "$EXTRACT_MENTIONS" -eq 1 ] && ! [ -z "$TEXT_MENTIONS" ] && ! [ -z "$MENTIONS_TAG" ]; then
-		TEXT=$(echo "$TEXT" | sed -E 's/@[A-Za-z0-9]+//g')
+		TEXT=$(echo "$TEXT" | sed -E 's/@[A-Za-z0-9_\\]+//g')
 		TEXT=$(echo "$TEXT" | sed "s/<mentions>/${TEXT_MENTIONS}/g")
 	fi
 
