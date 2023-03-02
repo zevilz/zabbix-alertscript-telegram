@@ -234,6 +234,8 @@ tlgPrepareText()
 		TEXT=$(echo "$TEXT" | sed -E -e 's/([-"`´,§$%&/(){}#@!?*.\t])/\\\1/g')
 		TEXT=$(echo "$TEXT" | sed -E -e 's/\\([^nu])/\1/g')
 	fi
+
+	TEXT=$(echo "$TEXT" | tr -d '\015' | sed '/^$/N;/^\n$/D')
 }
 
 tlgSendMessage()
