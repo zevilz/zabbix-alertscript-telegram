@@ -8,7 +8,7 @@ Script for sending Zabbix alerts via Telegram bot. Sending native Zabbix graphs 
 - curl;
 - jq;
 - [jo](https://github.com/jpmens/jo#install);
-- file (for official Zabbix Docker image based on Alpine Linux).
+- [file](https://github.com/zevilz/zabbix-alertscript-telegram#official-zabbix-docker-images) (for official Zabbix Docker image).
 
 ## Installation
 
