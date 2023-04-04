@@ -310,7 +310,7 @@ if [[ $(whoami) != "zabbix" ]]; then
 	exit 1
 fi
 
-if [[ "$OSTYPE" != "linux-gnu" ]]; then
+if [[ "$OSTYPE" != "linux-"* ]]; then
 	echo "The script only for using on GNU Linux dists!"
 	exit 1
 fi
