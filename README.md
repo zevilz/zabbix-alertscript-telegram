@@ -7,7 +7,8 @@ Script for sending Zabbix alerts via Telegram bot. Sending native Zabbix graphs 
 - Telegram bot;
 - curl;
 - jq;
-- [jo](https://github.com/jpmens/jo#install).
+- [jo](https://github.com/jpmens/jo#install);
+- file (for official Zabbix Docker image based on Alpine Linux).
 
 ## Installation
 
@@ -93,6 +94,14 @@ Notes:
 - `GRAPHS` var must be set to `1` and `ZABBIX_URL`, `ZABBIX_USER`, `ZABBIX_PASS` vars must be filled correct data for sending graphs;
 - regular message will be sent instead of graph with caption if there are errors when receiving a graph data via API and web interface;
 - it is unnecessary to delete graph data from messages template if it is necessary to temporarly disable sending graphs (just set `GRAPHS` var to `0`).
+
+## Official Zabbix Docker images
+
+Official Docker images based on Alpine Linux that not provide required `file` utility. You can install it manually:
+
+```
+docker exec -it --user=root image-name apk add --no-cache file
+```
 
 ## TODO
 - [ ] add support for basic auth on Zabbix web interface;
