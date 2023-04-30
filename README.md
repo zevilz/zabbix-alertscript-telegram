@@ -1,4 +1,4 @@
-# Telegram alertscript for Zabbix [![Version](https://img.shields.io/badge/version-v2.0.1-brightgreen.svg)](https://github.com/zevilz/zabbix-alertscript-telegram/releases/tag/2.0.1)
+# Telegram alertscript for Zabbix [![Version](https://img.shields.io/badge/version-v2.0.2-brightgreen.svg)](https://github.com/zevilz/zabbix-alertscript-telegram/releases/tag/2.0.2)
 
 Script for sending Zabbix alerts via Telegram bot. Sending native Zabbix graphs is supported.
 
@@ -115,6 +115,7 @@ docker exec -it --user=root image-name apk add --no-cache file
 - [zevilz.dev](https://zevilz.dev/posts/825/) (RU)
 
 ## Changelog
+- 30.04.2023 - 2.0.2 - Fixed get graphs from Zabbix 6.4
 - 05.04.2023 - 2.0.1 - Added support for non GNU Linux distros
 - 08.02.2023 - 2.0.0 - [Added support for sending graphs, logging and more](https://github.com/zevilz/zabbix-alertscript-telegram/releases/tag/2.0.0)
 - 06.01.2023 - 1.0.0 - released
