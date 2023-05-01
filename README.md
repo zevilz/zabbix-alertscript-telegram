@@ -1,4 +1,4 @@
-# Telegram alertscript for Zabbix [![Version](https://img.shields.io/badge/version-v2.0.2-brightgreen.svg)](https://github.com/zevilz/zabbix-alertscript-telegram/releases/tag/2.0.2)
+# Telegram alertscript for Zabbix [![Version](https://img.shields.io/badge/version-v2.0.3-brightgreen.svg)](https://github.com/zevilz/zabbix-alertscript-telegram/releases/tag/2.0.3)
 
 Script for sending Zabbix alerts via Telegram bot. Sending native Zabbix graphs is supported.
 
@@ -62,6 +62,8 @@ Original problem ID: {EVENT.ID}
 
 ````
 
+NOTE: You can include a custom config in the script to override script variables. To do this, create a new file in the same directory named `<script_name>.conf` (ex.: `telegram.sh.conf`) and put necessary variables there. This will be useful when updating the script. In new versions of the script, variables will be removed from the script itself and will be defined only in configs.
+
 ## Graphs
 
 To send graphs, specified user must have access to graphs of required data elements through the API and through the web interface. This can be a super admin or a user of any user role with required minimum rights. Also you may create super admin with minimal rights (all features are disabled, except for one of interface elements and API feature) and active only `graph.get` API method. This user will can access all graphs of all hosts.
@@ -106,15 +108,17 @@ docker exec -it --user=root image-name apk add --no-cache file
 ## TODO
 - [ ] add support for basic auth on Zabbix web interface;
 - [ ] add custom graph rendering (only get graph data from API with API key)
-- [ ] add script parameters for redefine script vars for add others variants of script in Zabbix web interface;
+- [ ] add support for more instances of the script via include custom configs (add script parameter in Zabbix web interface);
 - [ ] add support for sending multiple graphs in one message;
 - [ ] add graphs blacklist for specified items;
-- [ ] add support for redefine item ID from specified trigger.
+- [ ] add support for redefine item ID from specified trigger;
+- [ ] add troubleshooting section in readme.
 
 ## Reviews
 - [zevilz.dev](https://zevilz.dev/posts/825/) (RU)
 
 ## Changelog
+- 01.05.2023 - 2.0.3 - Added support for including custom config, disabled graphs deletion on errors if debug mode enabled, bugfixes
 - 30.04.2023 - 2.0.2 - Fixed get graphs from Zabbix 6.4
 - 05.04.2023 - 2.0.1 - Added support for non GNU Linux distros
 - 08.02.2023 - 2.0.0 - [Added support for sending graphs, logging and more](https://github.com/zevilz/zabbix-alertscript-telegram/releases/tag/2.0.0)
