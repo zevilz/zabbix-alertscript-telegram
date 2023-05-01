@@ -3,7 +3,7 @@
 # URL: https://github.com/zevilz/zabbix-alertscript-telegram
 # Author: zEvilz
 # License: MIT
-# Version: 2.0.2
+# Version: 2.0.3
 
 # vars
 TELEGRAM_BOT_TOKEN=""
@@ -208,6 +208,8 @@ zbxGetGraphImage()
 
 				if [ -z "$(echo "$GRAPH_PATH_FILEINFO" | grep 'PNG')" ]; then
 					pushToLog "[ERROR] - Can't get graph image: graph not a PNG or you have no access to graph (graphData: $GRAPH_DATA; itemID: $GRAPH_ITEM_ID; graphID: $ZABBIX_GRAPH_ID)"
+					GRAPH_FAIL=1
+
 					if [ "$DEBUG" -eq 1 ]; then
 						pushToLog "[NOTICE] - Graph output not removed and saved into $GRAPH_PATH"
 					else
@@ -218,6 +220,8 @@ zbxGetGraphImage()
 
 					if ! [ -z "$GRAPH_PATH_FILEINFO_HEIGHT" ] && [ "$GRAPH_PATH_FILEINFO_HEIGHT" -lt 50 ]; then
 						pushToLog "[ERROR] - Can't get graph image: image not a graph or you have no access to graph (graphData: $GRAPH_DATA; itemID: $GRAPH_ITEM_ID; graphID: $ZABBIX_GRAPH_ID)"
+						GRAPH_FAIL=1
+
 						if [ "$DEBUG" -eq 1 ]; then
 							pushToLog "[NOTICE] - Graph output not removed and saved into $GRAPH_PATH"
 						else
@@ -227,9 +231,10 @@ zbxGetGraphImage()
 				fi
 			else
 				pushToLog "[ERROR] - Can't get graph image (graphData: $GRAPH_DATA; itemID: $GRAPH_ITEM_ID; graphID: $ZABBIX_GRAPH_ID)"
+				GRAPH_FAIL=1
 			fi
 
-			if [ -f "$GRAPH_PATH" ]; then
+			if [[ -f "$GRAPH_PATH" && "$GRAPH_FAIL" -eq 0 ]]; then
 				GRAPH_ISSET=1
 			fi
 		fi
@@ -326,6 +331,7 @@ fi
 CUR_DIR=$(dirname "$0")
 CUR_TIME=$(date +%s)
 GRAPH_ISSET=0
+GRAPH_FAIL=0
 ZABBIX_AUTH_NEEDED=1
 TELEGRAM_CHAT_ID="$1"
 SUBJECT="$2"
