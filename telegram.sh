@@ -21,6 +21,10 @@ EXTRACT_MENTIONS=0
 SCRIPT_LOG_PATH=
 DEBUG=0
 
+if [ -f "$(dirname $0)/$(basename $0).conf" ]; then
+	. "$(dirname $0)/$(basename $0).conf"
+fi
+
 checkFilePermissions()
 {
 	if [ -w "$1" ] && ! [ -f "$1" ] || ! [ -f "$1" ] && ! [ -w "$(dirname $1)" ] || [ -f "$1" ] && ! [ -w "$1" ] || ! [ -d "$(dirname $1)" ] || [ -d "$1" ]; then
