@@ -47,7 +47,7 @@ Direct access to the script disabled for all users excluding `zabbix` user.
 - `ZABBIX_COOKIES_PATH` - full path to cookies file (zabbix user must be have write permissions to that file; empty by default; cookies stored in script directory in `zbx_cookies` file if empty value)
 - `MONOSPACED_DESCRIPTION` - add tripple apostrophe in the end of big truncated text/caption (if trigger description as monospaced text and in the end of message template; `0` - disabled, `1` - enabled; disabled by default);
 - `SCRIPT_LOG_PATH` - full path to script logs file (zabbix user must be have write permissions to that file; empty by default; logs stored in script directory in `zbx_tlg_bot.log` file if empty value)
-- `DEBUG` - write debug messages in logs file (`0` - disabled, `1` enabled; disabled by default).
+- `DEBUG` - write debug messages in logs file (`0` - disabled, `1` enabled; disabled by default; disabled graphs deletion from disk on errors if enabled).
 
 By default long messages will be truncated to 4000 characters (900 for graphs captions). if you will be sending long trigger descriptions in messages as monospaced text (triple apostrophe), set the `MONOSPACED_DESCRIPTION` var to `1`. In this case the script will properly complete truncated text. Example template:
 
