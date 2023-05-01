@@ -208,13 +208,21 @@ zbxGetGraphImage()
 
 				if [ -z "$(echo "$GRAPH_PATH_FILEINFO" | grep 'PNG')" ]; then
 					pushToLog "[ERROR] - Can't get graph image: graph not a PNG or you have no access to graph (graphData: $GRAPH_DATA; itemID: $GRAPH_ITEM_ID; graphID: $ZABBIX_GRAPH_ID)"
-					rm "$GRAPH_PATH"
+					if [ "$DEBUG" -eq 1 ]; then
+						pushToLog "[NOTICE] - Graph output not removed and saved into $GRAPH_PATH"
+					else
+						rm "$GRAPH_PATH"
+					fi
 				else
 					GRAPH_PATH_FILEINFO_HEIGHT=$(echo "$GRAPH_PATH_FILEINFO" | grep -o -E '[0-9]+\ x\ [0-9]+' | awk '{print $NF}')
 
 					if ! [ -z "$GRAPH_PATH_FILEINFO_HEIGHT" ] && [ "$GRAPH_PATH_FILEINFO_HEIGHT" -lt 50 ]; then
 						pushToLog "[ERROR] - Can't get graph image: image not a graph or you have no access to graph (graphData: $GRAPH_DATA; itemID: $GRAPH_ITEM_ID; graphID: $ZABBIX_GRAPH_ID)"
-						rm "$GRAPH_PATH"
+						if [ "$DEBUG" -eq 1 ]; then
+							pushToLog "[NOTICE] - Graph output not removed and saved into $GRAPH_PATH"
+						else
+							rm "$GRAPH_PATH"
+						fi
 					fi
 				fi
 			else
