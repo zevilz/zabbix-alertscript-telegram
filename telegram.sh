@@ -3,7 +3,7 @@
 # URL: https://github.com/zevilz/zabbix-alertscript-telegram
 # Author: zEvilz
 # License: MIT
-# Version: 2.0.3
+# Version: 2.0.4
 
 # vars
 TELEGRAM_BOT_TOKEN=""
