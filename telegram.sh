@@ -405,7 +405,7 @@ else
 	tlgSendMessage
 fi
 
-if ! [ -z "$GRAPH_PATH" ] && [ -f "$GRAPH_PATH" ]; then
+if ! [ -z "$GRAPH_PATH" ] && [ -f "$GRAPH_PATH" ] && [ "$GRAPH_FAIL" -eq 0 ]; then
 	rm "$GRAPH_PATH"
 fi
 
