@@ -3,7 +3,7 @@
 # URL: https://github.com/zevilz/zabbix-alertscript-telegram
 # Author: zEvilz
 # License: MIT
-# Version: 2.0.4
+# Version: 2.0.5
 
 # vars
 TELEGRAM_BOT_TOKEN=""
@@ -187,7 +187,7 @@ zbxGetGraphImage()
 			if [ "$DEBUG" -eq 1 ]; then
 				pushToLog "[DEBUG] - Cookies expired. Trying re-auth."
 			fi
-			ZABBIX_WEB_AUTH=$(/usr/bin/curl -s -b "$ZABBIX_COOKIES_PATH" -c "$ZABBIX_COOKIES_PATH" -L -d "name=${ZABBIX_USER}&password=${ZABBIX_PASS}&autologin=1&enter=Sign+in" "$ZABBIX_URL" 2>/dev/null)
+			ZABBIX_WEB_AUTH=$(/usr/bin/curl -s -b "$ZABBIX_COOKIES_PATH" -c "$ZABBIX_COOKIES_PATH" -L -d "name=${ZABBIX_USER}&password=${ZABBIX_PASS}&autologin=1&enter=Sign+in" "$ZABBIX_URL_AUTH" 2>/dev/null)
 			if [ -z "$ZABBIX_WEB_AUTH" ]; then
 				pushToLog "[ERROR] - Can't auth in Zabbix web: wrong response"
 				ZABBIX_WEB_AUTH_FAIL=1
@@ -337,6 +337,7 @@ CUR_TIME=$(date +%s)
 GRAPH_ISSET=0
 GRAPH_FAIL=0
 ZABBIX_AUTH_NEEDED=1
+ZABBIX_IN_SUBDIR=0
 TELEGRAM_CHAT_ID="$1"
 SUBJECT="$2"
 MESSAGE="$3"
@@ -356,8 +357,18 @@ if [ -z "$GRAPHS_DIR" ]; then
 	GRAPHS_DIR="/tmp/zbx_graphs"
 fi
 
+if [[ "$ZABBIX_URL" =~ \/\/.*\/.*\/$ ]]; then
+	ZABBIX_IN_SUBDIR=1
+fi
+
 ZABBIX_URL=$(echo "$ZABBIX_URL" | sed 's/\/$//')
 ZABBIX_API_URL="${ZABBIX_URL}/api_jsonrpc.php"
+
+if [ "$ZABBIX_IN_SUBDIR" -eq 1 ]; then
+	ZABBIX_URL_AUTH="${ZABBIX_URL}/"
+else
+	ZABBIX_URL_AUTH="$ZABBIX_URL"
+fi
 
 checkFilePermissions "$SCRIPT_LOG_PATH"
 if [ $GRAPHS -eq 1 ]; then
