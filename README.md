@@ -1,4 +1,4 @@
-# Telegram alertscript for Zabbix [![Version](https://img.shields.io/badge/version-v2.0.4-brightgreen.svg)](https://github.com/zevilz/zabbix-alertscript-telegram/releases/tag/2.0.4)
+# Telegram alertscript for Zabbix [![Version](https://img.shields.io/badge/version-v2.0.5-brightgreen.svg)](https://github.com/zevilz/zabbix-alertscript-telegram/releases/tag/2.0.5)
 
 Script for sending Zabbix alerts via Telegram bot. Sending native Zabbix graphs is supported.
 
@@ -118,6 +118,7 @@ docker exec -it --user=root image-name apk add --no-cache file
 - [zevilz.dev](https://zevilz.dev/posts/825/) (RU)
 
 ## Changelog
+- 25.09.2023 - 2.0.5 - Fixed auth if Zabbix installed in subdir
 - 11.09.2023 - 2.0.4 - Don't remove graph image if fail getting correct graph with enabled debug mode
 - 01.05.2023 - 2.0.3 - Added support for including custom config, disabled graphs deletion on errors if debug mode enabled, bugfixes
 - 30.04.2023 - 2.0.2 - Fixed get graphs from Zabbix 6.4
