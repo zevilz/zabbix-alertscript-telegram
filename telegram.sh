@@ -3,7 +3,7 @@
 # URL: https://github.com/zevilz/zabbix-alertscript-telegram
 # Author: zEvilz
 # License: MIT
-# Version: 2.0.5
+# Version: 2.1.0
 
 # vars
 TELEGRAM_BOT_TOKEN=""
@@ -257,7 +257,11 @@ tlgPrepareText()
 
 tlgSendMessage()
 {
-	DATA=$(jo chat_id="$TELEGRAM_CHAT_ID" text="$TEXT" parse_mode="markdown" disable_web_page_preview="true")
+	if [ -n "$TELEGRAM_CHAT_THREAD_ID" ]; then
+		DATA=$(jo chat_id="$TELEGRAM_CHAT_ID" message_thread_id="$TELEGRAM_CHAT_THREAD_ID" text="$TEXT" parse_mode="markdown" disable_web_page_preview="true")
+	else
+		DATA=$(jo chat_id="$TELEGRAM_CHAT_ID" text="$TEXT" parse_mode="markdown" disable_web_page_preview="true")
+	fi
 
 	TLG_RESPONSE=$(/usr/bin/curl -s \
 		-X POST \
@@ -339,11 +343,17 @@ GRAPH_FAIL=0
 ZABBIX_AUTH_NEEDED=1
 ZABBIX_IN_SUBDIR=0
 TELEGRAM_CHAT_ID="$1"
+TELEGRAM_CHAT_THREAD_ID=
 SUBJECT="$2"
 MESSAGE="$3"
 TEXT="*${SUBJECT}*
 
 ${MESSAGE}"
+
+if [[ "$TELEGRAM_CHAT_ID" == *:* ]]; then
+	TELEGRAM_CHAT_THREAD_ID=$(echo "$TELEGRAM_CHAT_ID" | awk -F ':' '{print $2}')
+	TELEGRAM_CHAT_ID=$(echo "$TELEGRAM_CHAT_ID" | awk -F ':' '{print $1}')
+fi
 
 if [ -z "$ZABBIX_COOKIES_PATH" ]; then
 	ZABBIX_COOKIES_PATH="${CUR_DIR}/zbx_cookies"
