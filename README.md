@@ -1,4 +1,4 @@
-# Telegram alertscript for Zabbix [![Version](https://img.shields.io/badge/version-v2.0.5-brightgreen.svg)](https://github.com/zevilz/zabbix-alertscript-telegram/releases/tag/2.0.5)
+# Telegram alertscript for Zabbix [![Version](https://img.shields.io/badge/version-v2.1.0-brightgreen.svg)](https://github.com/zevilz/zabbix-alertscript-telegram/releases/tag/2.1.0)
 
 Script for sending Zabbix alerts via Telegram bot. Sending native Zabbix graphs is supported.
 
@@ -29,7 +29,7 @@ Script for sending Zabbix alerts via Telegram bot. Sending native Zabbix graphs 
 
 Now you can choose this media type when setting up users.
 
-The bot must be started if the message is sent as a private message or must be added to a group if the message is to be sent to the group. You can get chat ID via [@zGetMyID_bot](https://t.me/zGetMyID_bot).
+The bot must be started if the message is sent as a private message or must be added to a group if the message is to be sent to the group. You can get chat ID via [@zGetMyID_bot](https://t.me/zGetMyID_bot). If you want send messages to specified topic in group with topics add topic ID to chat ID via colon (ex.: `-100123456789:1234`).
 
 Direct access to the script disabled for all users excluding `zabbix` user.
 
@@ -118,6 +118,7 @@ docker exec -it --user=root image-name apk add --no-cache file
 - [zevilz.dev](https://zevilz.dev/posts/825/) (RU)
 
 ## Changelog
+- 12.10.2023 - 2.1.0 - Added support for send alerts to chat topics
 - 25.09.2023 - 2.0.5 - Fixed auth if Zabbix installed in subdir
 - 11.09.2023 - 2.0.4 - Don't remove graph image if fail getting correct graph with enabled debug mode
 - 01.05.2023 - 2.0.3 - Added support for including custom config, disabled graphs deletion on errors if debug mode enabled, bugfixes
