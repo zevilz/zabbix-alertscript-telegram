@@ -3,7 +3,7 @@
 # URL: https://github.com/zevilz/zabbix-alertscript-telegram
 # Author: zEvilz
 # License: MIT
-# Version: 2.1.0
+# Version: 2.1.1
 
 # vars
 TELEGRAM_BOT_TOKEN=""
@@ -118,11 +118,11 @@ zbxApiAuth()
 				if ! [ -z "$ZABBIX_AUTH_ERROR" ]; then
 					pushToLog "[ERROR] - Can't get Zabbix API auth token: $ZABBIX_AUTH_ERROR"
 				else
-					pushToLog "[ERROR] - Can't get Zabbix API auth token: wrong API response"
+					pushToLog "[ERROR] - Can't get Zabbix API auth token: wrong API response (API response: $ZABBIX_AUTH)"
 				fi
 			fi
 		else
-			pushToLog "[ERROR] - Can't get Zabbix API auth token"
+			pushToLog "[ERROR] - Can't get Zabbix API auth token: empty API response"
 		fi
 	else
 		pushToLog "[ERROR] - Can't get Zabbix API auth token: wrong input data for auth in Zabbix API"
@@ -157,14 +157,14 @@ zbxApiGetGraphId()
 
 				if [[ "$ZABBIX_GRAPH_ERROR" == "null" ]]; then
 					if [ "$DEBUG" -eq 1 ]; then
-						pushToLog "[DEBUG] - Graph not exists for this item (graphData: $GRAPH_DATA; itemID: $GRAPH_ITEM_ID)"
+						pushToLog "[DEBUG] - Graph not exists for this item (graphData: $GRAPH_DATA; itemID: $GRAPH_ITEM_ID; API response: $ZABBIX_GRAPH)"
 					fi
 				else
-					pushToLog "[ERROR] - Can't get graph ID: $ZABBIX_GRAPH_ERROR (graphData: $GRAPH_DATA; itemID: $GRAPH_ITEM_ID)"
+					pushToLog "[ERROR] - Can't get graph ID: $ZABBIX_GRAPH_ERROR (graphData: $GRAPH_DATA; itemID: $GRAPH_ITEM_ID; API response: $ZABBIX_GRAPH)"
 				fi
 			fi
 		else
-			pushToLog "[ERROR] - Can't get graph ID"
+			pushToLog "[ERROR] - Can't get graph ID: empty API response"
 		fi
 	else
 		pushToLog "[ERROR] - Can't get graph ID: wrong input data for graph ID request"
@@ -271,14 +271,26 @@ tlgSendMessage()
 
 tlgSendPhoto()
 {
-	TLG_RESPONSE=$(/usr/bin/curl -s \
-		-X POST \
-		-H "Content-Type:multipart/form-data" \
-		-F "chat_id=${TELEGRAM_CHAT_ID}>" \
-		-F "photo=@${GRAPH_PATH}" \
-		-F "caption=${TEXT}" \
-		-F "parse_mode=markdown" \
-		"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto")
+	if [ -n "$TELEGRAM_CHAT_THREAD_ID" ]; then
+		TLG_RESPONSE=$(/usr/bin/curl -s \
+			-X POST \
+			-H "Content-Type:multipart/form-data" \
+			-F "chat_id=${TELEGRAM_CHAT_ID}" \
+			-F "message_thread_id=${TELEGRAM_CHAT_THREAD_ID}" \
+			-F "photo=@${GRAPH_PATH}" \
+			-F "caption=${TEXT}" \
+			-F "parse_mode=markdown" \
+			"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto")
+	else
+		TLG_RESPONSE=$(/usr/bin/curl -s \
+			-X POST \
+			-H "Content-Type:multipart/form-data" \
+			-F "chat_id=${TELEGRAM_CHAT_ID}" \
+			-F "photo=@${GRAPH_PATH}" \
+			-F "caption=${TEXT}" \
+			-F "parse_mode=markdown" \
+			"https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto")
+	fi
 }
 
 tlgCutText()
